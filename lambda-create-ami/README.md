@@ -59,7 +59,7 @@ This tool uses AWS Lambda & CloudWatch to automatically create EC2 AMIs at a sch
 ## Setup cron via Cloudwatch Events (to trigger Lambda function) 
 
 - Go to Cloudwatch console. Click on Events - Rules. You will find the cron name which you created during the **Create Lambda function** step.
-- Edit the rule and set the cron expression to the as per your desired time.
+- Edit the rule and set the cron expression as per your desired time.
 
 ![](http://aws.gauravkamboj.com/images/cron-1.PNG)
 
