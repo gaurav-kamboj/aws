@@ -1,6 +1,8 @@
-# Automate EC2 AMI creation via Lambda 
+# Automate AWS EC2 AMI creation via Lambda & CloudWatch
 
-This tool uses Lambda & Cloudwatch to automatically create EC2 AMIs at a scheduled time.
+This tool uses AWS Lambda & CloudWatch to automatically create EC2 AMIs at a scheduled time.
+
+Credits for Lambda (python script) function - [Rajgourav Jain](https://github.com/rajgouravjain)
 
 1. [Setup IAM Role](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#setup-iam-role)
 1. [Create Lambda Function](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#create-lambda-function)
@@ -19,21 +21,33 @@ This tool uses Lambda & Cloudwatch to automatically create EC2 AMIs at a schedul
 
 ![](http://aws.gauravkamboj.com/images/iam-2.PNG)
 
-* Provide a name and description for the role and click "Create Role".
+- Provide a name and description for the role and click "Create Role".
 
 ![](http://aws.gauravkamboj.com/images/iam-3.PNG)
 
 ## Create Lambda function
 
+- Go to Lambda console and click on **Create a Lambda function**
+- Click on **Blank Function**
+
 ![](http://aws.gauravkamboj.com/images/lambda-1.PNG)
+
+- Click in the empty box and select **CloudWatch Events - Schedule** from the dropdown.
 
 ![](http://aws.gauravkamboj.com/images/lambda-3.PNG)
 
+- **Configure Lambda Trigger** as per below screenshot and click **Next**
+
 ![](http://aws.gauravkamboj.com/images/lambda-4.PNG)
 
+- **Configure Lambda Function** - add name and description. Select **Python 2.7** as runtime.
+- Copy-paste the Lambda function from [backup_instance_as_ami.py](https://github.com/rajgouravjain/devops/blob/master/aws/lambda/backup_instance_as_ami.py)
 ![](http://aws.gauravkamboj.com/images/lambda-5.PNG)
+In the **Lambda function handler and role** section select **Choose an exisiting role **
+Select IAM role created in step 1 for Lambda fucntion in the dropdown. 
+![](http://aws.gauravkamboj.com/images/lambda-6.PNG)
 
-Copy paste the Lambda function from [backup_instance_as_ami.py](https://github.com/rajgouravjain/devops/blob/master/aws/lambda/backup_instance_as_ami.py)
+
 
 ## Setup cron via Cloudwatch Events (to trigger Lambda function) 
 
