@@ -4,7 +4,7 @@ This tool uses Lambda & Cloudwatch to automatically create EC2 AMIs at a schedul
 
 1. [Setup IAM Role](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#setup-iam-role)
 1. [Create Lambda Function](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#create-lambda-function)
-1. [Setup cron via Cloudwatch Events](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#setup-cron-via-cloudwatch-events)
+1. [Setup cron via Cloudwatch Events](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#setup-cron-via-cloudwatch-events-to-trigger-lambda-function)
 
 
 ## Setup IAM Role
