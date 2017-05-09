@@ -1,71 +1,46 @@
-# Automated AMI Backups via Lambda
-#
-# Author: Gaurav Kamboj
-# Version: 1.0.2
-
-import boto3
-import collections
+import os
+import json
 import datetime
-import sys
-import pprint
-
-ec = boto3.client('ec2')
+import boto3
+import boto3.session
+from dateutil import parser
 
 def lambda_handler(event, context):
-    
-    reservations = ec.describe_instances(
-        Filters=[
-            {'Name': 'tag-key', 'Values': ['backup', 'Backup']},
-        ]
-    ).get(
-        'Reservations', []
-    )
 
-    instances = sum(
-        [
-            [i for i in r['Instances']]
-            for r in reservations
-        ], [])
+    boto3_session = boto3.session.Session()
 
-    print "Found %d instances that need backing up" % len(instances)
+    #ec2_client = boto3_session.client('ec2')
 
-    to_tag = collections.defaultdict(list)
+    ec2_resource = boto3_session.resource('ec2')
+    ec2_client = ec2_resource.meta.client
 
-    for instance in instances:
-        try:
-            retention_days = [
-                int(t.get('Value')) for t in instance['Tags']
-                if t['Key'] == 'Retention'][0]
-        except IndexError:
-            retention_days = 7
+    ##print ec2_client.describe_instances()
+    filter1 = [
+     {
+        'Name': 'tag:backup',
+        'Values': ["*"]
+     },
+     {
+        'Name' : 'instance-state-name',
+        'Values': ['running']
+     }
+    ]
+    #running_instances = None
+    running_instances = []
 
-            create_time = datetime.datetime.now()
-            create_fmt = create_time.strftime('%Y-%m-%d')
-        
-            AMIid = ec.create_image(InstanceId=instance['InstanceId'], Name="Lambda - " + instance['InstanceId'] + " from " + create_fmt, Description="Lambda created AMI of instance " + instance['InstanceId'] + " from " + create_fmt, NoReboot=True, DryRun=False)
 
-            
-            pprint.pprint(instance)
-            
-            to_tag[retention_days].append(AMIid['ImageId'])
-            
-            print "Retaining AMI %s of instance %s for %d days" % (
-                AMIid['ImageId'],
-                instance['InstanceId'],
-                retention_days,
+    f1= ec2_client.describe_instances(DryRun=False,Filters=filter1)
+    print "First Filter results is", json.dumps(f1, indent=4, sort_keys=True, default=str)
+    #print "First Filter results is", json.dumps(f1["Reservations"][0]['Instances'], indent=4, sort_keys=True, default=str)
+    if f1['Reservations']:
+
+        for i  in f1["Reservations"][0]['Instances'] :
+            running_instances.append(i['InstanceId'])
+            instance = ec2_resource.Instance(i['InstanceId'])
+            image = instance.create_image(  DryRun=False,
+                Name=i['InstanceId'] + '-' + datetime.datetime.today().strftime('%Y-%m-%d-%H'),
+                Description='Backup of Instance '+ i['InstanceId'] + " On " + datetime.datetime.today().strftime('%Y-%m-%d-%H') ,
+                NoReboot=True
             )
 
-    print to_tag.keys()
-    
-    for retention_days in to_tag.keys():
-        delete_date = datetime.date.today() + datetime.timedelta(days=retention_days)
-        delete_fmt = delete_date.strftime('%m-%d-%Y')
-        print "Will delete %d AMIs on %s" % (len(to_tag[retention_days]), delete_fmt)
-    
-        ec.create_tags(
-            Resources=to_tag[retention_days],
-            Tags=[
-                {'Key': 'DeleteOn', 'Value': delete_fmt},
-            ]
-        )
-    
+    return running_instances
