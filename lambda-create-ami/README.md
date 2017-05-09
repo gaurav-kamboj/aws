@@ -42,9 +42,12 @@ Credits for Lambda (python script) function - [Rajgourav Jain](https://github.co
 
 - **Configure Lambda Function** - add name and description. Select **Python 2.7** as runtime.
 - Copy-paste the Lambda function from [backup_instance_as_ami.py](https://github.com/rajgouravjain/devops/blob/master/aws/lambda/backup_instance_as_ami.py)
+
 ![](http://aws.gauravkamboj.com/images/lambda-5.PNG)
-In the **Lambda function handler and role** section select **Choose an exisiting role **
-Select IAM role created in step 1 for Lambda fucntion in the dropdown. 
+
+- In the **Lambda function handler and role** section select **Choose an exisiting role **
+- **Select IAM role created in step 1 for AWS Lambda function** in the dropdown.
+
 ![](http://aws.gauravkamboj.com/images/lambda-6.PNG)
 
 
