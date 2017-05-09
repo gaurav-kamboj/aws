@@ -12,16 +12,16 @@ Credits for Lambda (python script) function - [Rajgourav Jain](https://github.co
 ## Setup IAM Role
 
 - Go to IAM 
-- Click on Roles and then click "Create Role"
-- In Select role type, select "AWS Lambda"
+- Click on **Roles** and then click "**Create Rol**e"
+- In Select role type, select "**AWS Lambda**"
 
 ![](http://aws.gauravkamboj.com/images/iam-1.PNG)
 
-- Provide EC2 access so that Lambda function can create AMIs
+- **Provide EC2 access** so that Lambda function can create AMIs
 
 ![](http://aws.gauravkamboj.com/images/iam-2.PNG)
 
-- Provide a name and description for the role and click "Create Role".
+- Provide a name and description for the role and click "**Create Role**".
 
 ![](http://aws.gauravkamboj.com/images/iam-3.PNG)
 
