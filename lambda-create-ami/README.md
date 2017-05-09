@@ -2,15 +2,20 @@
 
 This tool uses Lambda & Cloudwatch to automatically create EC2 AMIs at a scheduled time.
 
-### **Setup IAM Role**
+1. [Setup IAM Role](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#setup-iam-role)
+1. [Create Lambda Function](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#create-lambda-function)
+1. [Setup cron via Cloudwatch Events](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#setup-cron-via-cloudwatch-events)
 
-* Go to IAM 
-* Click on Roles and then click "Create Role"
-* In Select role type, select "AWS Lambda"
+
+## Setup IAM Role
+
+- Go to IAM 
+- Click on Roles and then click "Create Role"
+- In Select role type, select "AWS Lambda"
 
 ![](http://aws.gauravkamboj.com/images/iam-1.PNG)
 
-* Provide EC2 access so that Lambda function can create AMIs
+- Provide EC2 access so that Lambda function can create AMIs
 
 ![](http://aws.gauravkamboj.com/images/iam-2.PNG)
 
@@ -18,8 +23,7 @@ This tool uses Lambda & Cloudwatch to automatically create EC2 AMIs at a schedul
 
 ![](http://aws.gauravkamboj.com/images/iam-3.PNG)
 
-### **Create Lambda function**
-
+## Create Lambda function
 
 ![](http://aws.gauravkamboj.com/images/lambda-1.PNG)
 
@@ -29,15 +33,14 @@ This tool uses Lambda & Cloudwatch to automatically create EC2 AMIs at a schedul
 
 ![](http://aws.gauravkamboj.com/images/lambda-5.PNG)
 
-Copy paste the Lambda function from [https://github.com/rajgouravjain/devops/blob/master/aws/lambda/backup_instance_as_ami.py](https://github.com/rajgouravjain/devops/blob/master/aws/lambda/backup_instance_as_ami.py)
+Copy paste the Lambda function from [backup_instance_as_ami.py](https://github.com/rajgouravjain/devops/blob/master/aws/lambda/backup_instance_as_ami.py)
 
-Credits for Lambda function: [Rajgourav Jain](https://github.com/rajgouravjain) 
-
-### Setup cron via Cloudwatch Events
+## Setup cron via Cloudwatch Events (to trigger Lambda function) 
 
 - Go to Cloudwatch console. Click on Events - Rules. You will find the cron name which you created during the **Create Lambda function** step.
+- Edit the rule and set the cron expression to the as per your desired time.
 
 ![](http://aws.gauravkamboj.com/images/cron-1.PNG)
 
-To learn more on how to setup cron expression for Cloudwatch Event Rules check - [https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions)
+To learn more on **how to setup cron expression for Cloudwatch Events** check - [https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions](https://docs.aws.amazon.com/AmazonCloudWatch/latest/events/ScheduledEvents.html#CronExpressions)
 
