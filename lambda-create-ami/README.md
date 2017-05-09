@@ -2,7 +2,13 @@
 
 This tool uses AWS Lambda & CloudWatch to automatically create EC2 AMIs at a scheduled time.
 
-Credits for Lambda (python script) function - [Rajgourav Jain](https://github.com/rajgouravjain)
+**Usage**: 
+
+- Setup AWS Lambda & CloudWatch as per below instructions. 
+- Tag EC2 instances for which you want to automate AMI creation process with following tag: {Key: backup, Value: None}
+- Update cron expression in AWS CloudWatch to meet your requirements.
+
+**Credits for Lambda (python script) function** - [Rajgourav Jain](https://github.com/rajgouravjain)
 
 1. [Setup IAM Role](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#setup-iam-role)
 1. [Create Lambda Function](https://github.com/gaurav-kamboj/aws/tree/master/lambda-create-ami#create-lambda-function)
