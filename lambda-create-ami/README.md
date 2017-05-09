@@ -51,7 +51,7 @@ This tool uses AWS Lambda & CloudWatch to automatically create EC2 AMIs at a sch
 
 ![](http://aws.gauravkamboj.com/images/lambda-5.PNG)
 
-- In the **Lambda function handler and role** section select **Choose an exisiting role **
+- In the **Lambda function handler and role** section select **Choose an exisiting role**
 - **Select IAM role created in step 1 for AWS Lambda function** in the dropdown. Keep rest of configuration as default and **create Lambda function**. 
 
 ![](http://aws.gauravkamboj.com/images/lambda-6.PNG)
